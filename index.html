@@ -1,505 +1,238 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BehindHammock — Sleep Better Tonight</title>
-  <meta name="description" content="BehindHammock is a sleep companion app with premium sounds, sleep tasks, and a diamond reward system. Built by Bobby's Dev Room." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>BehindHammock — Main</title>
+  <meta name="description" content="BehindHammock main page. Access the landing page, support, privacy policy, and terms." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #0a0a12;
-      --surface: #12121f;
-      --card: #1a1a2e;
-      --accent: #7c6af7;
-      --accent2: #a78bfa;
-      --gold: #f4c842;
-      --text: #e8e6f0;
-      --muted: #7a7890;
-      --border: rgba(124,106,247,0.18);
+    *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+    :root{
+      --bg:#0a0a12;
+      --card:#1a1a2e;
+      --surface:#12121f;
+      --accent:#7c6af7;
+      --accent2:#a78bfa;
+      --text:#e8e6f0;
+      --muted:#7a7890;
+      --border:rgba(124,106,247,0.18);
+      --shadow:0 18px 60px rgba(0,0,0,0.35);
+      --glow:0 0 26px rgba(167,139,250,0.35);
+      --radius:18px;
     }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
+    body{
+      min-height:100vh;
+      color:var(--text);
+      font-family:"DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.7;
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(124,106,247,0.22), transparent 55%),
+        radial-gradient(720px 480px at 85% 10%, rgba(167,139,250,0.18), transparent 60%),
+        var(--bg);
+      padding-bottom: env(safe-area-inset-bottom);
     }
+    a{ color: var(--accent2); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
 
-    /* ── STARS BG ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1px 1px at 55% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
-        radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
-        radial-gradient(1px 1px at 85% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
-        radial-gradient(1px 1px at 20% 85%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1px 1px at 92% 55%, rgba(255,255,255,0.3) 0%, transparent 100%),
-        radial-gradient(1px 1px at 45% 45%, rgba(255,255,255,0.2) 0%, transparent 100%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 48px;
+    nav{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 16px 20px;
       background: rgba(10,10,18,0.7);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
-
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
+    .nav-logo{
+      font-family:"Playfair Display", serif;
+      font-weight:700;
       color: var(--accent2);
-      text-decoration: none;
-      letter-spacing: 0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 400;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--text); }
-
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 24px 80px;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(124,106,247,0.12);
-      border: 1px solid var(--border);
-      color: var(--accent2);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      border-radius: 100px;
-      margin-bottom: 32px;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 24px;
-      animation: fadeUp 0.6s ease 0.1s both;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(135deg, var(--accent2), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      font-size: 1.125rem;
-      color: var(--muted);
-      max-width: 520px;
-      margin: 0 auto 48px;
-      animation: fadeUp 0.6s ease 0.2s both;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      animation: fadeUp 0.6s ease 0.3s both;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: #fff;
-      padding: 14px 32px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--muted);
-      padding: 14px 28px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 400;
-      font-size: 0.95rem;
-      border: 1px solid var(--border);
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .btn-ghost:hover { color: var(--text); border-color: var(--accent2); }
-
-    /* ── GLOW ── */
-    .glow {
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,106,247,0.12) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
-    /* ── SECTION ── */
-    section {
-      position: relative;
-      z-index: 1;
-      padding: 96px 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 48px;
-      color: var(--text);
-    }
-
-    /* ── FEATURES GRID ── */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .feature-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px;
-      transition: border-color 0.3s, transform 0.2s;
-    }
-
-    .feature-card:hover {
-      border-color: rgba(124,106,247,0.5);
-      transform: translateY(-4px);
-    }
-
-    .feature-icon {
-      font-size: 2rem;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .feature-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      margin-bottom: 10px;
-      color: var(--text);
-    }
-
-    .feature-card p {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    /* ── PLANS ── */
-    .plans-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-
-    .plan-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px 28px;
-      position: relative;
-    }
-
-    .plan-card.popular {
-      border-color: var(--accent);
-      background: linear-gradient(145deg, rgba(124,106,247,0.12), var(--card));
-    }
-
-    .plan-badge {
-      position: absolute;
-      top: -12px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 14px;
-      border-radius: 100px;
+      letter-spacing:0.02em;
+      text-decoration:none;
+      font-size: 1.05rem;
       white-space: nowrap;
     }
-
-    .plan-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      margin-bottom: 6px;
+    .nav-links{
+      display:flex;
+      gap:14px;
+      list-style:none;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      white-space:nowrap;
+      padding: 6px 0;
+    }
+    .nav-links::-webkit-scrollbar{ display:none; }
+    .nav-links a{
+      display:inline-flex;
+      align-items:center;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(26,26,46,0.42);
+      color: var(--text);
+      font-size: 0.85rem;
+      text-decoration:none;
+      transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+    }
+    .nav-links a:hover{
+      transform: translateY(-1px);
+      border-color: rgba(167,139,250,0.35);
+      box-shadow: var(--glow);
+      text-decoration:none;
     }
 
-    .plan-price {
-      font-size: 2rem;
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 22px 16px 52px;
+    }
+
+    .hero{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(26,26,46,0.65);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    @media (min-width: 900px){ .hero{ padding: 22px; } }
+
+    h1{
+      font-family:"Playfair Display", serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height:1.12;
+      margin-bottom: 10px;
+      letter-spacing:-0.01em;
+    }
+    .sub{
+      color: var(--muted);
+      font-size: 0.98rem;
+      margin-bottom: 14px;
+      max-width: 70ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (min-width: 900px){
+      .grid{ grid-template-columns: 1fr 1fr; gap: 16px; }
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(18,18,31,0.55);
+      padding: 16px;
+    }
+    .card h2{
+      font-size: 1rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.2px;
+    }
+    .card p{ color: var(--muted); font-size: 0.92rem; margin-bottom: 10px; }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(167,139,250,0.32);
+      background: linear-gradient(180deg, rgba(124,106,247,0.24), rgba(10,10,18,0.18));
+      color: #fff;
       font-weight: 700;
-      color: var(--gold);
-      margin-bottom: 4px;
+      text-decoration:none;
+      box-shadow: var(--glow);
+      transition: transform 120ms ease, filter 120ms ease;
+      width: 100%;
+      text-align:center;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.06); text-decoration:none; }
+
+    .btnGhost{
+      background: rgba(10,10,18,0.35);
+      box-shadow: none;
+      border-color: rgba(124,106,247,0.20);
+      color: var(--text);
+      font-weight: 600;
     }
 
-    .plan-period {
-      font-size: 0.8rem;
+    footer{
+      margin-top: 16px;
       color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .plan-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .plan-features li {
-      font-size: 0.875rem;
-      color: var(--muted);
-      display: flex;
-      gap: 8px;
-    }
-
-    .plan-features li::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent2);
-      margin-top: 8px;
-      flex-shrink: 0;
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 48px 24px;
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      color: var(--accent2);
-      margin-bottom: 16px;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .footer-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--text); }
-
-    .footer-copy {
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
+      font-size: 0.82rem;
+      text-align:center;
+      opacity: 0.95;
+      border-top: 1px solid rgba(124,106,247,0.14);
+      padding-top: 14px;
     }
   </style>
 </head>
-<body>
 
+<body>
   <nav>
-    <a href="index.html" class="nav-logo">BehindHammock</a>
+    <a class="nav-logo" href="./">BehindHammock</a>
     <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#plans">Plans</a></li>
-      <li><a href="privacy.html">Privacy</a></li>
-      <li><a href="terms.html">Terms</a></li>
+      <li><a href="./marketing.html">LP</a></li>
+      <li><a href="./support.html">Support</a></li>
+      <li><a href="./privacy.html">Privacy</a></li>
+      <li><a href="./terms.html">Terms</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="glow"></div>
-    <span class="hero-badge">Now Available on the App Store</span>
-    <h1>Sleep better.<br /><span>Rest deeper.</span></h1>
-    <p class="hero-sub">BehindHammock is your personal sleep companion. Calming sounds, sleep tasks, and a diamond reward system — all designed to help you wind down and wake up restored.</p>
-    <div class="hero-actions">
-      <a href="#" class="btn-primary">Download on the App Store</a>
-      <a href="#features" class="btn-ghost">Learn More</a>
-    </div>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Main page</h1>
+      <p class="sub">
+        This is the main page. Use the links below to access the Landing Page (LP), Support, and legal pages.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Landing Page</h2>
+          <p>Use this for your App Store / Google Play Marketing URL.</p>
+          <a class="btn" href="./marketing.html">Open LP</a>
+        </div>
+
+        <div class="card">
+          <h2>Support</h2>
+          <p>Use this for your App Store / Google Play Support URL.</p>
+          <a class="btn btnGhost" href="./support.html">Open Support</a>
+        </div>
+
+        <div class="card">
+          <h2>Privacy Policy</h2>
+          <p>Required legal page.</p>
+          <a class="btn btnGhost" href="./privacy.html">Open Privacy</a>
+        </div>
+
+        <div class="card">
+          <h2>Terms of Use</h2>
+          <p>Required legal page.</p>
+          <a class="btn btnGhost" href="./terms.html">Open Terms</a>
+        </div>
+      </div>
+
+      <footer>
+        © <span id="y"></span> BehindHammock
+      </footer>
+    </section>
   </div>
 
-  <!-- FEATURES -->
-  <section id="features">
-    <p class="section-label">What's inside</p>
-    <h2 class="section-title">Everything you need<br />for a better night</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <span class="feature-icon">🎵</span>
-        <h3>Sleep Sounds & Music</h3>
-        <p>Ambient sounds and cover music crafted for deep, restful sleep. From ocean waves to orchestral tracks.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">✅</span>
-        <h3>Sleep Tasks</h3>
-        <p>Complete calming bedtime routines like breathing exercises and journaling. Build healthy sleep habits one night at a time.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">💎</span>
-        <h3>Diamond Rewards</h3>
-        <p>Earn diamonds by completing tasks or watching optional ads. Spend them to unlock premium content without a subscription.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">🔓</span>
-        <h3>Free to Start</h3>
-        <p>Six free sleep sounds with no subscription required. Earn your way to more or subscribe for instant full access.</p>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- PLANS -->
-  <section id="plans">
-    <p class="section-label">Pricing</p>
-    <h2 class="section-title">Simple plans,<br />no surprises</h2>
-    <div class="plans-grid">
-      <div class="plan-card">
-        <p class="plan-name">Low</p>
-        <p class="plan-price">$2.99</p>
-        <p class="plan-period">per week</p>
-        <ul class="plan-features">
-          <li>Premium Music</li>
-          <li>Cover Music</li>
-          <li>Ad-Free Experience</li>
-        </ul>
-      </div>
-      <div class="plan-card popular">
-        <span class="plan-badge">Most Popular</span>
-        <p class="plan-name">Moderate</p>
-        <p class="plan-price">$4.99</p>
-        <p class="plan-period">per month</p>
-        <ul class="plan-features">
-          <li>Everything in Low</li>
-          <li>Offline Downloads</li>
-          <li>Priority Support</li>
-          <li>Unlimited Playback</li>
-        </ul>
-      </div>
-      <div class="plan-card">
-        <p class="plan-name">High</p>
-        <p class="plan-price">$39.99</p>
-        <p class="plan-period">per year</p>
-        <ul class="plan-features">
-          <li>Everything in Moderate</li>
-          <li>Alpha & Beta Features</li>
-          <li>Magazine & Blog Access</li>
-          <li>Full Content Unlock</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p class="footer-logo">BehindHammock</p>
-    <div class="footer-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Use</a>
-      <a href="./support.html">Support</a>
-      <a href="https://x.com/BobbysDevxxx" target="_blank" rel="noopener">X (Twitter)</a>
-      <a href="https://discord.gg/3pwXFRq9" target="_blank" rel="noopener">Discord</a>
-    </div>
-    <p class="footer-copy">2025 Bobby's Dev Room. All rights reserved.</p>
-  </footer>
-
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
