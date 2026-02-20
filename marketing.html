@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>BehindHammock — Official</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: #e8e6f0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(900px 520px at 18% 0%, rgba(124,106,247,0.22), transparent 55%),
+        radial-gradient(720px 480px at 85% 10%, rgba(167,139,250,0.18), transparent 60%),
+        #0a0a12;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    :root{
+      --card: rgba(26,26,46,0.72);
+      --border: rgba(124,106,247,0.18);
+      --muted: #8a88a4;
+      --accent: #7c6af7;
+      --accent2: #a78bfa;
+      --glow: 0 0 26px rgba(167,139,250,0.35);
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+      --radius: 18px;
+    }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 22px 16px 48px;
+      padding-bottom: calc(48px + env(safe-area-inset-bottom));
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 10px 0 16px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .dot{
+      width: 12px; height: 12px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: var(--glow);
+      flex: 0 0 auto;
+    }
+
+    .appname{
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(26,26,46,0.52);
+      color: #e8e6f0;
+      text-decoration:none;
+      font-size: 13px;
+      transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(167,139,250,0.35);
+      box-shadow: var(--glow);
+    }
+
+    .hero{
+      margin-top: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items:center;
+    }
+
+    @media (min-width: 900px){
+      .heroGrid{
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 18px;
+      }
+      .hero{ padding: 22px; }
+    }
+
+    h1{
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      font-size: 34px;
+      line-height: 1.1;
+      margin: 0 0 10px;
+      letter-spacing: 0.2px;
+    }
+
+    .sub{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .badges{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(124,106,247,0.16);
+      background: rgba(10,10,18,0.42);
+      font-size: 13px;
+      color: #e8e6f0;
+    }
+
+    .ctaRow{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 520px){
+      .ctaRow{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(167,139,250,0.32);
+      background: linear-gradient(180deg, rgba(124,106,247,0.24), rgba(10,10,18,0.18));
+      color: #fff;
+      font-weight: 700;
+      text-decoration:none;
+      box-shadow: var(--glow);
+      transition: transform 120ms ease, filter 120ms ease;
+      text-align:center;
+      gap: 8px;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
+
+    .btnGhost{
+      background: rgba(10,10,18,0.35);
+      box-shadow: none;
+      border-color: rgba(124,106,247,0.20);
+      font-weight: 600;
+    }
+
+    .phone{
+      border: 1px solid rgba(124,106,247,0.16);
+      border-radius: 22px;
+      background: rgba(10,10,18,0.55);
+      padding: 14px;
+      position: relative;
+      overflow:hidden;
+    }
+
+    .phone::before{
+      content:"";
+      position:absolute;
+      inset: -60px -80px auto auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle at 30% 30%, rgba(167,139,250,0.32), transparent 60%);
+      filter: blur(2px);
+    }
+
+    .screen{
+      border-radius: 16px;
+      border: 1px solid rgba(124,106,247,0.14);
+      background: linear-gradient(180deg, rgba(26,26,46,0.40), rgba(10,10,18,0.35));
+      padding: 14px;
+      display:grid;
+      gap: 10px;
+    }
+
+    .miniCard{
+      border-radius: 14px;
+      border: 1px solid rgba(124,106,247,0.14);
+      background: rgba(26,26,46,0.50);
+      padding: 12px;
+    }
+
+    .miniTitle{
+      font-weight: 700;
+      font-size: 14px;
+      margin: 0 0 6px;
+    }
+
+    .miniText{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .section{
+      margin-top: 16px;
+      display:grid;
+      gap: 12px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 820px){
+      .cards{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(26,26,46,0.62);
+      padding: 14px;
+    }
+
+    .card h3{
+      margin: 0 0 6px;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+    }
+
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .foot{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      border-top: 1px solid rgba(124,106,247,0.14);
+      padding-top: 14px;
+    }
+
+    .foot a{ color: #cbbdff; }
+
+    .tiny{
+      opacity: 0.95;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="logo">
+        <span class="dot" aria-hidden="true"></span>
+        <div class="appname">BehindHammock</div>
+      </div>
+
+      <div class="nav">
+        <a class="pill" href="./privacy.html">Privacy</a>
+        <a class="pill" href="./terms.html">Terms</a>
+        <a class="pill" href="./support.html">Support</a>
+      </div>
+    </div>
+
+    <main class="hero">
+      <div class="heroGrid">
+        <section>
+          <h1>Calm focus, instantly.</h1>
+          <p class="sub">
+            BehindHammock helps you reset your mind and stay consistent — with a clean experience built for iPhone and Android.
+          </p>
+
+          <div class="badges" aria-label="Highlights">
+            <div class="badge">⚡ Fast & lightweight</div>
+            <div class="badge">🌙 Dark / neon style</div>
+            <div class="badge">🔒 Privacy-first</div>
+            <div class="badge">📱 Mobile-first UI</div>
+          </div>
+
+          <div class="ctaRow">
+            <!-- TODO: Replace with your App Store / Google Play links -->
+            <a class="btn" href="#" aria-label="Download on the App Store"> App Store</a>
+            <a class="btn btnGhost" href="#" aria-label="Get it on Google Play">▶ Google Play</a>
+          </div>
+
+          <p class="sub" style="margin-top:12px;">
+            Questions? Visit <a href="./support.html">Support</a> or email us anytime.
+          </p>
+        </section>
+
+        <aside class="phone" aria-label="App preview mock">
+          <div class="screen">
+            <div class="miniCard">
+              <p class="miniTitle">Today</p>
+              <p class="miniText">One tap. One small win. Keep your streak alive.</p>
+            </div>
+            <div class="miniCard">
+              <p class="miniTitle">Quick reset</p>
+              <p class="miniText">Short sessions that fit real life — no clutter.</p>
+            </div>
+            <div class="miniCard">
+              <p class="miniTitle">Minimal & sexy</p>
+              <p class="miniText">Neon dark UI designed to feel premium.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="section">
+        <div class="cards">
+          <div class="card">
+            <h3>Built for mobile</h3>
+            <p>Finger-friendly spacing, safe-area padding, fast loading.</p>
+          </div>
+          <div class="card">
+            <h3>Simple onboarding</h3>
+            <p>No confusing steps. Users get value in under a minute.</p>
+          </div>
+          <div class="card">
+            <h3>Store-ready links</h3>
+            <p>Privacy, Terms, Support are always one tap away.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot">
+        <div class="tiny">© <span id="y"></span> BehindHammock</div>
+        <div class="tiny">
+          <a href="./privacy.html">Privacy</a> ·
+          <a href="./terms.html">Terms</a> ·
+          <a href="./support.html">Support</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
