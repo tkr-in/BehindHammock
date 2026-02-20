@@ -1,387 +1,530 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>BehindHammock — Official</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>BehindHammock — Sleep Better Tonight</title>
+  <meta name="description" content="BehindHammock is a sleep companion app with premium sounds, sleep tasks, and a diamond reward system." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      color: #e8e6f0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:
-        radial-gradient(900px 520px at 18% 0%, rgba(124,106,247,0.22), transparent 55%),
-        radial-gradient(720px 480px at 85% 10%, rgba(167,139,250,0.18), transparent 60%),
-        #0a0a12;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root{
-      --card: rgba(26,26,46,0.72);
-      --border: rgba(124,106,247,0.18);
-      --muted: #8a88a4;
+    :root {
+      --bg: #0a0a12;
+      --surface: #12121f;
+      --card: #1a1a2e;
       --accent: #7c6af7;
       --accent2: #a78bfa;
-      --glow: 0 0 26px rgba(167,139,250,0.35);
-      --shadow: 0 18px 60px rgba(0,0,0,0.35);
-      --radius: 18px;
+      --gold: #f4c842;
+      --text: #e8e6f0;
+      --muted: #7a7890;
+      --border: rgba(124,106,247,0.18);
     }
 
-    .wrap{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 22px 16px 48px;
-      padding-bottom: calc(48px + env(safe-area-inset-bottom));
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    /* ── STARS BG ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 20% 85%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 92% 55%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 45% 45%, rgba(255,255,255,0.2) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      padding: 10px 0 16px;
+      padding: 16px 20px;
+      background: rgba(10,10,18,0.7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
     }
 
-    .logo{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .dot{
-      width: 12px; height: 12px; border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: var(--glow);
-      flex: 0 0 auto;
-    }
-
-    .appname{
-      font-weight: 700;
-      letter-spacing: 0.2px;
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--accent2);
+      text-decoration: none;
+      letter-spacing: 0.02em;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
-    .nav{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-end;
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      list-style: none;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px 0;
     }
+    .nav-links::-webkit-scrollbar { display: none; }
 
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(26,26,46,0.52);
-      color: #e8e6f0;
-      text-decoration:none;
-      font-size: 13px;
-      transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
-    }
-    .pill:hover{
-      transform: translateY(-1px);
-      border-color: rgba(167,139,250,0.35);
-      box-shadow: var(--glow);
-    }
-
-    .hero{
-      margin-top: 10px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--card);
-      box-shadow: var(--shadow);
-      padding: 18px;
-    }
-
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      align-items:center;
-    }
-
-    @media (min-width: 900px){
-      .heroGrid{
-        grid-template-columns: 1.05fr 0.95fr;
-        gap: 18px;
-      }
-      .hero{ padding: 22px; }
-    }
-
-    h1{
-      font-family: "Playfair Display", serif;
-      font-weight: 700;
-      font-size: 34px;
-      line-height: 1.1;
-      margin: 0 0 10px;
-      letter-spacing: 0.2px;
-    }
-
-    .sub{
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    .badges{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
       padding: 8px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(124,106,247,0.16);
-      background: rgba(10,10,18,0.42);
-      font-size: 13px;
-      color: #e8e6f0;
-    }
-
-    .ctaRow{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    @media (min-width: 520px){
-      .ctaRow{ grid-template-columns: 1fr 1fr; }
-    }
-
-    .btn{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 13px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(167,139,250,0.32);
-      background: linear-gradient(180deg, rgba(124,106,247,0.24), rgba(10,10,18,0.18));
-      color: #fff;
-      font-weight: 700;
-      text-decoration:none;
-      box-shadow: var(--glow);
-      transition: transform 120ms ease, filter 120ms ease;
-      text-align:center;
-      gap: 8px;
-    }
-    .btn:hover{ transform: translateY(-1px); filter: brightness(1.06); }
-
-    .btnGhost{
-      background: rgba(10,10,18,0.35);
-      box-shadow: none;
-      border-color: rgba(124,106,247,0.20);
-      font-weight: 600;
-    }
-
-    .phone{
-      border: 1px solid rgba(124,106,247,0.16);
-      border-radius: 22px;
-      background: rgba(10,10,18,0.55);
-      padding: 14px;
-      position: relative;
-      overflow:hidden;
-    }
-
-    .phone::before{
-      content:"";
-      position:absolute;
-      inset: -60px -80px auto auto;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle at 30% 30%, rgba(167,139,250,0.32), transparent 60%);
-      filter: blur(2px);
-    }
-
-    .screen{
-      border-radius: 16px;
-      border: 1px solid rgba(124,106,247,0.14);
-      background: linear-gradient(180deg, rgba(26,26,46,0.40), rgba(10,10,18,0.35));
-      padding: 14px;
-      display:grid;
-      gap: 10px;
-    }
-
-    .miniCard{
-      border-radius: 14px;
-      border: 1px solid rgba(124,106,247,0.14);
-      background: rgba(26,26,46,0.50);
-      padding: 12px;
-    }
-
-    .miniTitle{
-      font-weight: 700;
-      font-size: 14px;
-      margin: 0 0 6px;
-    }
-
-    .miniText{
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .section{
-      margin-top: 16px;
-      display:grid;
-      gap: 12px;
-    }
-
-    .cards{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    @media (min-width: 820px){
-      .cards{ grid-template-columns: 1fr 1fr 1fr; }
-    }
-
-    .card{
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(26,26,46,0.62);
-      padding: 14px;
+      background: rgba(26,26,46,0.42);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .nav-links a:hover { transform: translateY(-1px); border-color: rgba(167,139,250,0.35); box-shadow: 0 0 22px rgba(167,139,250,0.25); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 18px 80px;
     }
 
-    .card h3{
-      margin: 0 0 6px;
-      font-size: 14px;
-      letter-spacing: 0.2px;
+    .hero-badge {
+      display: inline-block;
+      background: rgba(124,106,247,0.12);
+      border: 1px solid var(--border);
+      color: var(--accent2);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
     }
 
-    .card p{
-      margin: 0;
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 8vw, 5.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      animation: fadeUp 0.6s ease 0.1s both;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent2), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
       color: var(--muted);
-      font-size: 13px;
+      max-width: 560px;
+      margin: 0 auto 34px;
+      animation: fadeUp 0.6s ease 0.2s both;
+      padding: 0 4px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s;
+      min-width: 240px;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--muted);
+      padding: 14px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+      min-width: 180px;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--accent2); }
+
+    /* ── GLOW ── */
+    .glow {
+      position: absolute;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,106,247,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    /* ── SECTION ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 90px 18px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 44px;
+      color: var(--text);
+    }
+
+    /* ── FEATURES GRID ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(124,106,247,0.5);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .feature-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.12rem;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
       line-height: 1.6;
     }
 
-    .foot{
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 12px;
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: space-between;
-      border-top: 1px solid rgba(124,106,247,0.14);
-      padding-top: 14px;
+    /* ── PLANS ── */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
     }
 
-    .foot a{ color: #cbbdff; }
+    .plan-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      position: relative;
+    }
 
-    .tiny{
-      opacity: 0.95;
+    .plan-card.popular {
+      border-color: var(--accent);
+      background: linear-gradient(145deg, rgba(124,106,247,0.12), var(--card));
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .plan-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .plan-period {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .plan-features li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      gap: 8px;
+    }
+
+    .plan-features li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent2);
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 44px 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--accent2);
+      margin-bottom: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      nav { padding: 14px 14px; }
+      .btn-primary { min-width: 100%; }
+      .btn-ghost { min-width: 100%; }
     }
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="logo">
-        <span class="dot" aria-hidden="true"></span>
-        <div class="appname">BehindHammock</div>
-      </div>
 
-      <div class="nav">
-        <a class="pill" href="./privacy.html">Privacy</a>
-        <a class="pill" href="./terms.html">Terms</a>
-        <a class="pill" href="./support.html">Support</a>
+  <nav>
+    <a href="./" class="nav-logo">BehindHammock</a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#plans">Plans</a></li>
+      <li><a href="./support.html">Support</a></li>
+      <li><a href="./privacy.html">Privacy</a></li>
+      <li><a href="./terms.html">Terms</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="glow"></div>
+    <span class="hero-badge">Now Available</span>
+    <h1>Sleep better.<br /><span>Rest deeper.</span></h1>
+    <p class="hero-sub">
+      BehindHammock is your personal sleep companion. Calming sounds, sleep tasks,
+      and a diamond reward system — designed to help you wind down and wake up restored.
+    </p>
+    <div class="hero-actions">
+      <!-- TODO: Replace with your real store link -->
+      <a href="APP_STORE_LINK" class="btn-primary">Download on the App Store</a>
+      <a href="#features" class="btn-ghost">Learn More</a>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <p class="section-label">What's inside</p>
+    <h2 class="section-title">Everything you need<br />for a better night</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🎵</span>
+        <h3>Sleep Sounds & Music</h3>
+        <p>Ambient sounds and cover music crafted for deep, restful sleep.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">✅</span>
+        <h3>Sleep Tasks</h3>
+        <p>Calming bedtime routines like breathing exercises and journaling.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">💎</span>
+        <h3>Diamond Rewards</h3>
+        <p>Earn diamonds via tasks or optional ads. Unlock premium content.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔓</span>
+        <h3>Free to Start</h3>
+        <p>Start free. Upgrade anytime for full access and extra features.</p>
       </div>
     </div>
+  </section>
 
-    <main class="hero">
-      <div class="heroGrid">
-        <section>
-          <h1>Calm focus, instantly.</h1>
-          <p class="sub">
-            BehindHammock helps you reset your mind and stay consistent — with a clean experience built for iPhone and Android.
-          </p>
+  <hr class="divider" />
 
-          <div class="badges" aria-label="Highlights">
-            <div class="badge">⚡ Fast & lightweight</div>
-            <div class="badge">🌙 Dark / neon style</div>
-            <div class="badge">🔒 Privacy-first</div>
-            <div class="badge">📱 Mobile-first UI</div>
-          </div>
-
-          <div class="ctaRow">
-            <!-- TODO: Replace with your App Store / Google Play links -->
-            <a class="btn" href="#" aria-label="Download on the App Store"> App Store</a>
-            <a class="btn btnGhost" href="#" aria-label="Get it on Google Play">▶ Google Play</a>
-          </div>
-
-          <p class="sub" style="margin-top:12px;">
-            Questions? Visit <a href="./support.html">Support</a> or email us anytime.
-          </p>
-        </section>
-
-        <aside class="phone" aria-label="App preview mock">
-          <div class="screen">
-            <div class="miniCard">
-              <p class="miniTitle">Today</p>
-              <p class="miniText">One tap. One small win. Keep your streak alive.</p>
-            </div>
-            <div class="miniCard">
-              <p class="miniTitle">Quick reset</p>
-              <p class="miniText">Short sessions that fit real life — no clutter.</p>
-            </div>
-            <div class="miniCard">
-              <p class="miniTitle">Minimal & sexy</p>
-              <p class="miniText">Neon dark UI designed to feel premium.</p>
-            </div>
-          </div>
-        </aside>
+  <!-- PLANS -->
+  <section id="plans">
+    <p class="section-label">Pricing</p>
+    <h2 class="section-title">Simple plans,<br />no surprises</h2>
+    <div class="plans-grid">
+      <div class="plan-card">
+        <p class="plan-name">Low</p>
+        <p class="plan-price">$2.99</p>
+        <p class="plan-period">per week</p>
+        <ul class="plan-features">
+          <li>Premium Music</li>
+          <li>Cover Music</li>
+          <li>Ad-Free Experience</li>
+        </ul>
       </div>
-
-      <div class="section">
-        <div class="cards">
-          <div class="card">
-            <h3>Built for mobile</h3>
-            <p>Finger-friendly spacing, safe-area padding, fast loading.</p>
-          </div>
-          <div class="card">
-            <h3>Simple onboarding</h3>
-            <p>No confusing steps. Users get value in under a minute.</p>
-          </div>
-          <div class="card">
-            <h3>Store-ready links</h3>
-            <p>Privacy, Terms, Support are always one tap away.</p>
-          </div>
-        </div>
+      <div class="plan-card popular">
+        <span class="plan-badge">Most Popular</span>
+        <p class="plan-name">Moderate</p>
+        <p class="plan-price">$4.99</p>
+        <p class="plan-period">per month</p>
+        <ul class="plan-features">
+          <li>Everything in Low</li>
+          <li>Offline Downloads</li>
+          <li>Priority Support</li>
+          <li>Unlimited Playback</li>
+        </ul>
       </div>
-
-      <div class="foot">
-        <div class="tiny">© <span id="y"></span> BehindHammock</div>
-        <div class="tiny">
-          <a href="./privacy.html">Privacy</a> ·
-          <a href="./terms.html">Terms</a> ·
-          <a href="./support.html">Support</a>
-        </div>
+      <div class="plan-card">
+        <p class="plan-name">High</p>
+        <p class="plan-price">$39.99</p>
+        <p class="plan-period">per year</p>
+        <ul class="plan-features">
+          <li>Everything in Moderate</li>
+          <li>Alpha & Beta Features</li>
+          <li>Magazine & Blog Access</li>
+          <li>Full Content Unlock</li>
+        </ul>
       </div>
-    </main>
-  </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-logo">BehindHammock</p>
+    <div class="footer-links">
+      <a href="./support.html">Support</a>
+      <a href="./privacy.html">Privacy Policy</a>
+      <a href="./terms.html">Terms of Use</a>
+    </div>
+    <p class="footer-copy">© <span id="y"></span> BehindHammock</p>
+  </footer>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
