@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — BehindHammock</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root{
+      --bg: #0a0a12;
+      --card: #1a1a2e;
+      --accent: #7c6af7;
+      --accent2: #a78bfa;
+      --text: #e8e6f0;
+      --muted: #7a7890;
+      --border: rgba(124,106,247,0.18);
+      --glow: 0 0 24px rgba(167,139,250,0.35);
+    }
+    body{
+      background: radial-gradient(900px 500px at 15% 0%, rgba(124,106,247,0.18), transparent 55%),
+                  radial-gradient(700px 450px at 85% 15%, rgba(167,139,250,0.14), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    a{ color: var(--accent2); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 16px 64px;
+    }
+
+    header{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .brand{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand h1{
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      font-size: 34px;
+      letter-spacing: 0.2px;
+    }
+
+    .brand p{
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    nav{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(26,26,46,0.6);
+      box-shadow: 0 6px 22px rgba(0,0,0,0.25);
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(167,139,250,0.35);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.32), var(--glow);
+      text-decoration: none;
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 860px){
+      header{ flex-direction: column; align-items: flex-start; }
+      nav{ justify-content: flex-start; }
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(26,26,46,0.72);
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+    }
+
+    .card h2{
+      font-size: 16px;
+      letter-spacing: 0.2px;
+      margin-bottom: 10px;
+      color: #f0eff7;
+    }
+
+    .card p{
+      color: var(--text);
+      opacity: 0.95;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .muted{ color: var(--muted); font-size: 13px; }
+
+    .list{
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .item{
+      border: 1px solid rgba(124,106,247,0.14);
+      background: rgba(10,10,18,0.45);
+      border-radius: 14px;
+      padding: 12px 12px;
+    }
+
+    .item strong{
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .item span{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cta{
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(167,139,250,0.32);
+      background: linear-gradient(180deg, rgba(124,106,247,0.22), rgba(10,10,18,0.2));
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: var(--glow);
+      transition: transform 120ms ease, filter 120ms ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.07);
+      text-decoration: none;
+    }
+
+    footer{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      opacity: 0.95;
+    }
+
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      background: rgba(10,10,18,0.55);
+      border: 1px solid rgba(124,106,247,0.18);
+      padding: 2px 6px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <h1>Support</h1>
+        <p>Need help with <strong>BehindHammock</strong>? You’re in the right place.</p>
+      </div>
+
+      <nav>
+        <a class="pill" href="./index.html">Home</a>
+        <a class="pill" href="./privacy.html">Privacy</a>
+        <a class="pill" href="./terms.html">Terms</a>
+      </nav>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Contact</h2>
+        <p>
+          The fastest way to reach us is email. Please include your device model, OS version, and what you were doing
+          when the issue happened.
+        </p>
+
+        <!-- TODO: Replace with your real support email -->
+        <div class="cta">
+          <a class="btn" href="mailto:YOUR_SUPPORT_EMAIL@example.com?subject=BehindHammock%20Support%20Request">
+            Email Support
+          </a>
+          <p class="muted">
+            Support email: <code>YOUR_SUPPORT_EMAIL@example.com</code>
+          </p>
+        </div>
+
+        <div class="list" style="margin-top:14px;">
+          <div class="item">
+            <strong>Bug Report</strong>
+            <span>Tell us steps to reproduce + screenshots if possible.</span>
+          </div>
+          <div class="item">
+            <strong>Billing / Purchases</strong>
+            <span>Include your order ID / receipt info (don’t share passwords).</span>
+          </div>
+          <div class="item">
+            <strong>Feedback</strong>
+            <span>We love feature requests — keep it short + clear.</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h2>FAQ</h2>
+
+        <div class="list">
+          <div class="item">
+            <strong>How do I report a problem?</strong>
+            <span>Email support with details and your app version.</span>
+          </div>
+
+          <div class="item">
+            <strong>How do I delete my data?</strong>
+            <span>
+              Email us from the address you used in the app (if applicable) with the subject:
+              <code>Data Deletion Request</code>.
+            </span>
+          </div>
+
+          <div class="item">
+            <strong>Privacy Policy & Terms</strong>
+            <span>
+              Read them here:
+              <a href="./privacy.html">Privacy</a> ·
+              <a href="./terms.html">Terms</a>
+            </span>
+          </div>
+        </div>
+
+        <footer>
+          <p>
+            Tip: If you use GitHub Pages, your Support URL will be:
+            <code>https://&lt;user&gt;.github.io/&lt;repo&gt;/support.html</code>
+          </p>
+        </footer>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
